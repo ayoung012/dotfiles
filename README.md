@@ -19,10 +19,10 @@ sudo dnf install fontconfig-devel libX11-devel libXft-devel
 git clone https://github.com/LukeSmithxyz/st.git src/st
 cd src/st
 sudo make install
+cd ~
 ```
 
-
-
-
-
+#### Intel Brightness Controls
+```
+git clone https://github.com/ayoung012/intel_backlight_brightness.git src/intel_backlight_brightness
 ```
