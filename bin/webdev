@@ -1,0 +1,17 @@
+#! /bin/sh
+
+#=================================================================
+# Starts or stops apache and mysql
+# Author: Adam Young
+
+fatal() { echo "$*"; exit 1; }
+
+test ! -w / && fatal  must be root
+
+if [ "$1" != "" ]
+then
+	service httpd $1
+	service mariadb $1
+else
+	fatal  please provide an instruction, eg webdev start or stop
+fi

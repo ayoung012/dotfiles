@@ -1,0 +1,52 @@
+#! /bin/sh
+
+#=================================================================
+# Used to remove unwanted boot entries
+# DONT USE THIS. You can configure dnf to automatically keep two kernel
+# versions if you like. This is just a grub2 config emergency reference for me.
+#
+# Author: Adam Young
+
+fatal() { echo "$*"; exit 1; }
+
+test ! -w / && fatal  must be root
+
+ver=$1
+DIR=/boot
+if [ -d $DIR ]; then cd $DIR; else fatal "Can't cd to $DIR"; fi
+
+# config-4.0.7-200.fc21.x86_64
+# initramfs-4.0.7-200.fc21.x86_64.img
+# System.map-4.0.7-200.fc21.x86_64
+# vmlinuz-4.0.7-200.fc21.x86_64
+# .vmlinuz-4.0.7-200.fc21.x86_64.hmac
+
+if [ "$ver" =  '' ]
+then
+	fatal You need a version number to delete, eg 2.0.7-200
+elif [ "$ver" = "-l" ]
+then
+	echo Current boot records:
+	ls -la vmlinuz-*x86_64
+	exit 0
+fi
+
+configdel=config-$ver.fc24.x86_64
+initramdel=initramfs-$ver.fc24.x86_64.img
+sysmapdel=System.map-$ver.fc24.x86_64
+dotvmlindel=.vmlinuz-$ver.fc24.x86_64.hmac
+vmlindel=vmlinuz-$ver.fc24.x86_64
+
+latest=$(ls -tr vmlinuz-*x86_64 | tail -1)
+
+if [ "$vmlindel" = "$latest" ]
+then
+	echo Deleting the latest boot record wouldnt be the greatest idea
+else
+	echo Backing up boot records...
+	tar czvf /root/bootbackup$ver.tar.gz $configdel $initramdel $sysmapdel $dotvmlindel $vmlindel initramfs-0-rescue-* vmlinuz-0-rescue-*
+	echo deleting everything
+	rm $configdel $initramdel $sysmapdel $dotvmlindel $vmlindel initramfs-0-rescue-* vmlinuz-0-rescue-*
+	echo Building grub2 config
+	grub2-mkconfig -o /boot/grub2/grub.cfg
+fi

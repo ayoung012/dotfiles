@@ -1,0 +1,11 @@
+# Headphones not detected?
+amixer -c0 sset 'Headphone Mic Boost' 10dB
+alsactl restore
+
+# React dependancies
+# https://byteplumbing.net/2015/10/getting-react-native-running-on-fedora-22/
+sudo dnf install zlib.i686 libstdc++.i686
+
+
+#MTP DRIVERS
+sudo dnf install gvfs-mtp simple-mtpfs
