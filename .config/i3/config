@@ -43,7 +43,7 @@ for_window [instance="dropdown_*"] move position center
 
 # #---Starting External Scripts---# #
 # Composite manager:
-exec --no-startup-id xcompmgr
+exec --no-startup-id sleep 1; xcompmgr
 # Unclutter makes the mouse invisible after a brief period
 exec --no-startup-id unclutter
 
