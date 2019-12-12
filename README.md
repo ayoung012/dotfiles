@@ -4,7 +4,7 @@ Usually running the latest Fedora, LXDE spin. I install the LXDE spin because it
 #### Essentials
 ```
 sudo dnf update
-sudo dnf install -y i3 i3lock xcompmgr vim ranger firefox
+sudo dnf install -y i3 i3lock xcompmgr vim ranger firefox fzf
 
 mkdir src
 ```
