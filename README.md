@@ -25,12 +25,19 @@ cd ~
 #### Intel Brightness Controls
 ```
 git clone https://github.com/ayoung012/intel_backlight_brightness.git src/intel_backlight_brightness
+```
+
+#### vim plug
+```
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
 
 #### SDDM chili theme
 https://github.com/MarianArlt/sddm-chili
 
 ```
-# Fedora deps and config file
+# SDDM deps and config file
 sudo dnf install qt5 qt5-qtquickcontrols qt5-qtgraphicaleffects
 sudo vi /etc/sddm.conf
 ```
